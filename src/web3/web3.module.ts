@@ -14,18 +14,34 @@ export class Web3Module {
       return obj;
     }, {});
 
-    const providers: Provider[] = chainIds.map((chainId) => {
-      return {
-        provide: `Provider${chainId}`,
-        useFactory: () => {
-          return new ethers.JsonRpcProvider(rpc_urls[chainId]);
-        },
-      };
+    const providers: Provider[] = chainIds
+      .map((chainId) => {
+        return [
+          {
+            provide: `Provider${chainId}`,
+            useFactory: () => {
+              return new ethers.JsonRpcProvider(rpc_urls[chainId]);
+            },
+          },
+          {
+            provide: `Signer${chainId}`,
+            useFactory: () => {
+              return new ethers.Wallet(process.env[`PRIVATE_${chainId}`]);
+            },
+          },
+        ];
+      })
+      .flat();
+
+    providers.push({
+      provide: 'Web3ModuleTokens',
+      useValue: tokens,
     });
+
     return {
       module: Web3Module,
       providers,
-      exports: tokens,
+      exports: providers.map((provider: any) => provider.provide),
     };
   }
 }

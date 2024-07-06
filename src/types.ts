@@ -4,3 +4,16 @@ export interface Token {
   ex_symbol: string;
   address: string;
 }
+
+export interface Dex {
+  name: string;
+  router: string;
+  factory: string;
+  chainId: string;
+}
+
+export interface DexMetadata {
+  name: string;
+  version: 'V2' | 'v2' | 'V3' | 'v3' | 'Aerodrome';
+  chainId: string;
+}
