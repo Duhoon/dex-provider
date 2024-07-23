@@ -1,3 +1,12 @@
+import { JsonRpcApiProviderOptions, Networkish } from 'ethers';
+
+export interface ProviderParam {
+  provide: string;
+  url: string;
+  networkish?: Networkish;
+  options?: JsonRpcApiProviderOptions;
+}
+
 export interface Token {
   name: string;
   symbol: string;
