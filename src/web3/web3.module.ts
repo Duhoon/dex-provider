@@ -1,6 +1,7 @@
 import { Module, DynamicModule, Provider } from '@nestjs/common';
 import { ethers } from 'ethers';
 import { ProviderParam } from 'src/types';
+import { TokenRegistry } from './token.registry';
 
 @Module({})
 export class Web3Module {
@@ -18,8 +19,11 @@ export class Web3Module {
 
     return {
       module: Web3Module,
-      providers,
-      exports: providers.map((provider: any) => provider.provide),
+      providers: [...providers, TokenRegistry],
+      exports: [
+        ...providers.map((provider: any) => provider.provide),
+        TokenRegistry,
+      ],
     };
   }
 }
