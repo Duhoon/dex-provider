@@ -5,21 +5,21 @@ import { Token } from 'src/types';
 export class TokenContract {
   readonly contract: Contract;
   readonly symbol: string;
-  readonly decimal: number;
+  readonly decimals: number;
 
   constructor(token: Token, provider: Provider) {
     this.contract = new Contract(token.address, abi, provider);
     this.symbol = token.symbol;
-    this.decimal = token.decimal;
+    this.decimals = token.decimals;
   }
 
   async balance(address: string): Promise<string> {
     const balanceRaw = (await this.contract.balance(address)) as bigint;
-    return formatUnits(balanceRaw, this.decimal);
+    return formatUnits(balanceRaw, this.decimals);
   }
 
   async approve(spender: string, amount: number): Promise<void> {
-    const amountFormated = parseUnits(amount.toString(), this.decimal);
+    const amountFormated = parseUnits(amount.toString(), this.decimals);
     await this.contract.approve(spender, amountFormated);
   }
 

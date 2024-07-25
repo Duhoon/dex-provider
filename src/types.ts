@@ -12,6 +12,7 @@ export interface Token {
   symbol: string;
   ex_symbol: string;
   address: string;
+  decimals: number;
 }
 
 export interface Dex {

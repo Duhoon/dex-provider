@@ -7,12 +7,14 @@ export const tokens: { [chain_id: string]: { [symbol: string]: Token } } = {
       symbol: 'AERO',
       ex_symbol: 'AERO',
       address: '',
+      decimals: 18,
     },
     DEGEN: {
       name: 'DEGEN',
       symbol: 'DEGEN',
       ex_symbol: 'DEGEN',
       address: '',
+      decimals: 18,
     },
   },
 };
